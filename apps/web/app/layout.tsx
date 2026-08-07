@@ -1,19 +1,20 @@
-import type {Metadata} from 'next';
-import './globals.css';
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Piyush | Software Engineer",
-  description: "Production-grade developer portfolio built Next.js, Hano, Bun and Cloudflare "
+  description:
+    "Production-grade portfolio built with Next.js, Hono, Bun, Cloudflare and TypeScript.",
 };
 
-export default function RootLayout ({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang="en" suppressHydrationWarning>
       <body>{children}</body>
     </html>
-  )
+  );
 }
