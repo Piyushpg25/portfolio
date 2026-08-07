@@ -7,17 +7,20 @@ export default function HomePage() {
     <Section>
       <Container>
         <div className="rounded-[var(--radius-lg)] border border-[var(--border)] p-10 shadow-[var(--shadow-md)]">
-          <h1 className="mb-4 text-5xl font-bold">
-            Premium Portfolio
-          </h1>
-
-          <p className="mb-8 text-lg">
-            Production-ready UI Foundation 🚀
+          <p className="font-mono mb-4 text-sm text-gray-500">
+            Full Stack Developer
           </p>
 
-          <Button>
-            Coming Soon
-          </Button>
+          <h1 className="heading-xl mb-6">
+            Building Modern Web Experiences.
+          </h1>
+
+          <p className="text-lead mb-8 max-w-2xl">
+            This portfolio is being built from scratch using modern
+            technologies and production-grade engineering practices.
+          </p>
+
+          <Button>Explore Portfolio</Button>
         </div>
       </Container>
     </Section>
