@@ -11,16 +11,18 @@ export default function HomePage() {
             Full Stack Developer
           </p>
 
-          <h1 className="heading-xl mb-6">
-            Building Modern Web Experiences.
-          </h1>
+          <h1 className="heading-xl mb-6">Building Modern Web Experiences.</h1>
 
           <p className="text-lead mb-8 max-w-2xl">
-            This portfolio is being built from scratch using modern
-            technologies and production-grade engineering practices.
+            This portfolio is being built from scratch using modern technologies
+            and production-grade engineering practices.
           </p>
 
-          <Button>Explore Portfolio</Button>
+          <div className="flex gap-4">
+            <Button>View Projects</Button>
+
+            <Button variant="outline">Contact Me</Button>
+          </div>
         </div>
       </Container>
     </Section>
