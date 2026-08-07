@@ -1,0 +1,16 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "packageManager": "bun@1.2.21",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "echo \"Apps will be added in upcoming milestones\"",
+    "build": "echo \"Build configuration coming soon\"",
+    "lint": "echo \"Lint configuration coming soon\"",
+    "test": "echo \"Testing configuration coming soon\"",
+    "format": "echo \"Formatting configuration coming soon\""
+  }
+}

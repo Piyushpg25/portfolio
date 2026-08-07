@@ -1,0 +1,32 @@
+# Dependencies
+node_modules
+
+# Bun
+.bun
+bun.lockb
+
+# Logs
+logs
+*.log
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Build
+.next
+dist
+out
+coverage
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+
+# Misc
+*.tsbuildinfo
