@@ -58,12 +58,19 @@ export function HeroContent() {
         variants={itemVariants}
         className="mt-8 flex flex-col gap-3 sm:flex-row"
       >
-        <Button asChild size="lg">
-          <Link href="#projects">
-            View Projects
-            <ArrowRight size={18} />
-          </Link>
-        </Button>
+        <Button
+  asChild
+  size="lg"
+  className="group !border-neutral-900 !bg-neutral-900 !text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:!bg-neutral-800 hover:shadow-md dark:!border-white dark:!bg-white dark:!text-black dark:hover:!bg-neutral-200"
+>
+  <Link href="#projects">
+    View Projects
+    <ArrowRight
+      size={18}
+      className="transition-transform duration-200 group-hover:translate-x-1"
+    />
+  </Link>
+</Button>
 
         <Button
           asChild
