@@ -14,12 +14,12 @@ export function HeroVisual() {
   return (
     <div
       aria-hidden="true"
-      className="relative mx-auto aspect-square w-full max-w-[520px]"
+      className="relative z-10 mx-auto aspect-square w-full max-w-[520px]"
     >
 
       <HeroThree />
 
-      
+
       {/* Ambient glow */}
       <div className="absolute left-1/2 top-1/2 size-[55%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
 

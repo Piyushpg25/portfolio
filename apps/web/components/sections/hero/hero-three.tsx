@@ -3,6 +3,9 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+const LIGHT_COLOR = 0x525252;
+const DARK_COLOR = 0xa3a3a3;
+
 export function HeroThree() {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -42,7 +45,26 @@ export function HeroThree() {
     container.appendChild(renderer.domElement);
 
     /*
-     * Particle geometry
+     * ----------------------------------------
+     * Theme
+     * ----------------------------------------
+     */
+
+    const getThemeColor = () => {
+      const isDark =
+        document.documentElement.classList.contains(
+          "dark",
+        );
+
+      return isDark
+        ? DARK_COLOR
+        : LIGHT_COLOR;
+    };
+
+    /*
+     * ----------------------------------------
+     * Particles
+     * ----------------------------------------
      */
 
     const particleCount = 140;
@@ -51,7 +73,11 @@ export function HeroThree() {
       particleCount * 3,
     );
 
-    for (let index = 0; index < particleCount; index += 1) {
+    for (
+      let index = 0;
+      index < particleCount;
+      index += 1
+    ) {
       const offset = index * 3;
 
       positions[offset] =
@@ -64,9 +90,10 @@ export function HeroThree() {
         (Math.random() - 0.5) * 3;
     }
 
-    const geometry = new THREE.BufferGeometry();
+    const particleGeometry =
+      new THREE.BufferGeometry();
 
-    geometry.setAttribute(
+    particleGeometry.setAttribute(
       "position",
       new THREE.BufferAttribute(
         positions,
@@ -74,23 +101,26 @@ export function HeroThree() {
       ),
     );
 
-    const material = new THREE.PointsMaterial({
-      color: 0x888888,
-      size: 0.035,
-      transparent: true,
-      opacity: 0.45,
-      sizeAttenuation: true,
-    });
+    const particleMaterial =
+      new THREE.PointsMaterial({
+        color: getThemeColor(),
+        size: 0.035,
+        transparent: true,
+        opacity: 0.45,
+        sizeAttenuation: true,
+      });
 
     const particles = new THREE.Points(
-      geometry,
-      material,
+      particleGeometry,
+      particleMaterial,
     );
 
     scene.add(particles);
 
     /*
-     * Main floating object
+     * ----------------------------------------
+     * Main Wireframe Object
+     * ----------------------------------------
      */
 
     const objectGeometry =
@@ -101,7 +131,7 @@ export function HeroThree() {
 
     const objectMaterial =
       new THREE.MeshBasicMaterial({
-        color: 0x888888,
+        color: getThemeColor(),
         wireframe: true,
         transparent: true,
         opacity: 0.18,
@@ -115,7 +145,9 @@ export function HeroThree() {
     scene.add(object);
 
     /*
-     * Mouse interaction
+     * ----------------------------------------
+     * Mouse Interaction
+     * ----------------------------------------
      */
 
     const mouse = {
@@ -150,7 +182,82 @@ export function HeroThree() {
     );
 
     /*
+     * ----------------------------------------
+     * Reduced Motion
+     * ----------------------------------------
+     */
+
+    const reducedMotionQuery =
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+
+    let prefersReducedMotion =
+      reducedMotionQuery.matches;
+
+    const handleReducedMotionChange = (
+      event: MediaQueryListEvent,
+    ) => {
+      prefersReducedMotion =
+        event.matches;
+    };
+
+    reducedMotionQuery.addEventListener(
+      "change",
+      handleReducedMotionChange,
+    );
+
+    /*
+     * ----------------------------------------
+     * Visibility
+     * ----------------------------------------
+     */
+
+    let isVisible = true;
+
+    const visibilityObserver =
+      new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+        },
+        {
+          threshold: 0.1,
+        },
+      );
+
+    visibilityObserver.observe(container);
+
+    /*
+     * ----------------------------------------
+     * Theme Observer
+     * ----------------------------------------
+     */
+
+    const themeObserver =
+      new MutationObserver(() => {
+        const color = getThemeColor();
+
+        particleMaterial.color.setHex(
+          color,
+        );
+
+        objectMaterial.color.setHex(
+          color,
+        );
+      });
+
+    themeObserver.observe(
+      document.documentElement,
+      {
+        attributes: true,
+        attributeFilter: ["class"],
+      },
+    );
+
+    /*
+     * ----------------------------------------
      * Resize
+     * ----------------------------------------
      */
 
     const resizeObserver =
@@ -161,7 +268,10 @@ export function HeroThree() {
         const height =
           container.clientHeight;
 
-        if (width === 0 || height === 0) {
+        if (
+          width === 0 ||
+          height === 0
+        ) {
           return;
         }
 
@@ -187,7 +297,9 @@ export function HeroThree() {
     resizeObserver.observe(container);
 
     /*
+     * ----------------------------------------
      * Animation
+     * ----------------------------------------
      */
 
     let animationFrameId = 0;
@@ -196,11 +308,20 @@ export function HeroThree() {
       animationFrameId =
         requestAnimationFrame(animate);
 
+      if (
+        !isVisible ||
+        prefersReducedMotion
+      ) {
+        renderer.render(
+          scene,
+          camera,
+        );
+
+        return;
+      }
+
       particles.rotation.y += 0.0008;
       particles.rotation.x += 0.0002;
-
-      object.rotation.x += 0.002;
-      object.rotation.y += 0.003;
 
       object.rotation.x +=
         (mouse.y * 0.15 -
@@ -212,6 +333,8 @@ export function HeroThree() {
           object.rotation.y) *
         0.02;
 
+      object.rotation.z += 0.001;
+
       renderer.render(
         scene,
         camera,
@@ -221,7 +344,9 @@ export function HeroThree() {
     animate();
 
     /*
+     * ----------------------------------------
      * Cleanup
+     * ----------------------------------------
      */
 
     return () => {
@@ -231,13 +356,22 @@ export function HeroThree() {
 
       resizeObserver.disconnect();
 
+      visibilityObserver.disconnect();
+
+      themeObserver.disconnect();
+
+      reducedMotionQuery.removeEventListener(
+        "change",
+        handleReducedMotionChange,
+      );
+
       container.removeEventListener(
         "pointermove",
         handlePointerMove,
       );
 
-      geometry.dispose();
-      material.dispose();
+      particleGeometry.dispose();
+      particleMaterial.dispose();
 
       objectGeometry.dispose();
       objectMaterial.dispose();
@@ -259,7 +393,7 @@ export function HeroThree() {
     <div
       ref={containerRef}
       aria-hidden="true"
-      className="absolute inset-0"
+      className="pointer-events-none absolute inset-0 -z-0"
     />
   );
 }
