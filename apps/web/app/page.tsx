@@ -1,50 +1,29 @@
+import { Hero } from "@/components/sections/hero/hero";
+
 export default function HomePage() {
   return (
     <main>
-      <section
-        id="about"
-        className="flex min-h-screen items-center justify-center"
-      >
-        <h1 className="text-4xl font-bold">
-          About
-        </h1>
-      </section>
+      <Hero />
 
       <section
         id="skills"
-        className="flex min-h-screen items-center justify-center"
-      >
-        <h2 className="text-4xl font-bold">
-          Skills
-        </h2>
-      </section>
+        className="min-h-screen"
+      />
 
       <section
         id="projects"
-        className="flex min-h-screen items-center justify-center"
-      >
-        <h2 className="text-4xl font-bold">
-          Projects
-        </h2>
-      </section>
+        className="min-h-screen"
+      />
 
       <section
         id="experience"
-        className="flex min-h-screen items-center justify-center"
-      >
-        <h2 className="text-4xl font-bold">
-          Experience
-        </h2>
-      </section>
+        className="min-h-screen"
+      />
 
       <section
         id="contact"
-        className="flex min-h-screen items-center justify-center"
-      >
-        <h2 className="text-4xl font-bold">
-          Contact
-        </h2>
-      </section>
+        className="min-h-screen"
+      />
     </main>
   );
 }
