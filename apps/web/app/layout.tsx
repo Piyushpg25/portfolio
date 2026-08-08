@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
 
 import "./globals.css";
+import {Header} from '@/components/layout/header';
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
+          <Header />
           {children}
         </ThemeProvider>
       </body>
