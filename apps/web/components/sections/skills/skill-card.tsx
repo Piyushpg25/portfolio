@@ -1,12 +1,16 @@
 "use client";
 
 import { motion } from "motion/react";
-import type { Icon } from "@phosphor-icons/react";
+
+import type { ComponentType } from "react";
 
 interface SkillCardProps {
   name: string;
   description: string;
-  icon: Icon;
+  icon: ComponentType<{
+    size?: number;
+    className?: string;
+  }>;
   index: number;
 }
 
@@ -36,17 +40,17 @@ export function SkillCard({
         ease: "easeOut",
       }}
       whileHover={{
-        y: -3,
+        y: -4,
       }}
       className="group rounded-2xl border bg-background/70 p-5 shadow-sm backdrop-blur transition-all duration-300 hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-4">
-        <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border bg-muted/50 text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-          <Icon size={21} weight="duotone" />
+        <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border bg-muted/50 text-foreground transition-transform duration-300 group-hover:scale-105">
+          <Icon size={25} />
         </div>
 
         <span className="rounded-full border px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
-          Used
+          Technology
         </span>
       </div>
 

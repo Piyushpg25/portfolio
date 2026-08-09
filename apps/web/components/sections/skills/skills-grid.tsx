@@ -1,150 +1,253 @@
 "use client";
-
 import {
-  BracketsCurly,
-  Cloud,
-  Database,
-  GitBranch,
-  Gear,
-  Globe,
-  ShieldCheck,
-  TestTube,
-} from "@phosphor-icons/react";
+  BootstrapIcon,
+  CloudflareIcon,
+  CssIcon,
+  DockerIcon,
+  DrizzleIcon,
+  ExpressIcon,
+  GitIcon,
+  GithubIcon,
+  GithubActionsIcon,
+  HonoIcon,
+  HtmlIcon,
+  JavaIcon,
+  JavascriptIcon,
+  LinuxIcon,
+  MongoDbIcon,
+  MySqlIcon,
+  NextjsIcon,
+  NodejsIcon,
+  PostmanIcon,
+  PostgreSqlIcon,
+  PythonIcon,
+  ReactIcon,
+  RestApiIcon,
+  TailwindCssIcon,
+  TypescriptIcon,
+  UbuntuIcon,
+} from "@/components/icons";
 
 import { SkillCard } from "@/components/sections/skills/skill-card";
 
-const skillGroups = [
+interface Skill {
+  name: string;
+  description: string;
+  icon: React.ComponentType<{
+    size?: number;
+    className?: string;
+  }>;
+}
+
+interface SkillGroup {
+  title: string;
+  description: string;
+  skills: Skill[];
+}
+
+const skillGroups: SkillGroup[] = [
   {
     title: "Frontend",
     description:
-      "Modern interfaces focused on performance, accessibility and user experience.",
+      "Modern frontend technologies for building responsive, accessible and performant user interfaces.",
     skills: [
       {
-        name: "Next.js",
+        name: "HTML5",
         description:
-          "Production React applications with App Router and server-first rendering.",
-        icon: Globe,
+          "Semantic markup for accessible and well-structured web interfaces.",
+        icon: HtmlIcon,
       },
       {
-        name: "React",
+        name: "CSS3",
         description:
-          "Component-driven interfaces with predictable state and reusable patterns.",
-        icon: BracketsCurly,
+          "Modern layouts, responsive design, animations and visual styling.",
+        icon: CssIcon,
+      },
+      {
+        name: "JavaScript",
+        description:
+          "Core language for interactive and dynamic web applications.",
+        icon: JavascriptIcon,
       },
       {
         name: "TypeScript",
         description:
-          "Strong typing for safer refactoring and maintainable application code.",
-        icon: Gear,
+          "Type-safe development for maintainable and scalable applications.",
+        icon: TypescriptIcon,
+      },
+      {
+        name: "React",
+        description:
+          "Component-based UI development with reusable application architecture.",
+        icon: ReactIcon,
+      },
+      {
+        name: "Next.js",
+        description:
+          "Full-stack React framework using the modern App Router.",
+        icon: NextjsIcon,
       },
       {
         name: "Tailwind CSS",
         description:
-          "Consistent responsive UI systems with utility-first styling.",
-        icon: Globe,
+          "Utility-first CSS framework for rapidly building consistent interfaces.",
+        icon: TailwindCssIcon,
+      },
+      {
+        name: "Bootstrap",
+        description:
+          "Responsive UI development using a mature component system.",
+        icon: BootstrapIcon,
       },
     ],
   },
+
   {
-    title: "Backend & Data",
+    title: "Backend",
     description:
-      "Reliable APIs and data layers designed around clear boundaries.",
+      "Backend technologies for APIs, server-side applications and scalable services.",
     skills: [
+      {
+        name: "Node.js",
+        description:
+          "JavaScript runtime for building scalable server-side applications.",
+        icon: NodejsIcon,
+      },
+      {
+        name: "Express.js",
+        description:
+          "Flexible Node.js framework for building production-ready APIs.",
+        icon: ExpressIcon,
+      },
       {
         name: "Hono",
         description:
-          "Lightweight APIs designed for modern runtimes and edge environments.",
-        icon: BracketsCurly,
+          "Lightweight web framework designed for modern runtimes and edge environments.",
+        icon: HonoIcon,
       },
       {
-        name: "Bun",
+        name: "REST API",
         description:
-          "Fast JavaScript runtime and tooling for modern backend development.",
-        icon: Gear,
+          "Resource-oriented API architecture using HTTP methods and predictable contracts.",
+        icon: RestApiIcon,
+      },
+      {
+        name: "Java",
+        description:
+          "Object-oriented programming and enterprise backend development.",
+        icon: JavaIcon,
+      },
+      {
+        name: "Python",
+        description:
+          "General-purpose language for backend development, scripting and automation.",
+        icon: PythonIcon,
+      },
+    ],
+  },
+
+  {
+    title: "Database",
+    description:
+      "Database technologies for structured, scalable and reliable data persistence.",
+    skills: [
+      {
+        name: "MongoDB",
+        description:
+          "Document-oriented database for flexible application data models.",
+        icon: MongoDbIcon,
+      },
+      {
+        name: "MySQL",
+        description:
+          "Relational database for structured application data and transactions.",
+        icon: MySqlIcon,
+      },
+      {
+        name: "PostgreSQL",
+        description:
+          "Powerful relational database for production-grade applications.",
+        icon: PostgreSqlIcon,
       },
       {
         name: "Drizzle ORM",
         description:
-          "Type-safe database access with explicit schemas and SQL-friendly patterns.",
-        icon: Database,
-      },
-      {
-        name: "Turso",
-        description:
-          "Edge-friendly SQLite database infrastructure for globally distributed apps.",
-        icon: Database,
+          "Type-safe database toolkit with explicit schemas and SQL-friendly patterns.",
+        icon: DrizzleIcon,
       },
     ],
   },
+
   {
-    title: "Cloud & DevOps",
+    title: "DevOps & Cloud",
     description:
-      "Deployment and infrastructure practices for production workloads.",
+      "Tools and platforms used for development workflows, deployment and infrastructure.",
     skills: [
       {
-        name: "Cloudflare",
+        name: "Git",
         description:
-          "Edge deployment, Workers and cloud infrastructure for scalable applications.",
-        icon: Cloud,
+          "Distributed version control for collaborative software development.",
+        icon: GitIcon,
       },
       {
-        name: "Docker",
+        name: "GitHub",
         description:
-          "Portable application environments with reproducible builds and deployments.",
-        icon: Gear,
+          "Code hosting, collaboration and project management platform.",
+        icon: GithubIcon,
       },
       {
         name: "GitHub Actions",
         description:
-          "Automated CI workflows for testing, validation and deployment.",
-        icon: GitBranch,
+          "CI/CD automation for testing, validation and deployment workflows.",
+        icon: GithubActionsIcon,
       },
       {
-        name: "Testing",
+        name: "Docker",
         description:
-          "Automated confidence through unit, integration and end-to-end testing.",
-        icon: TestTube,
+          "Containerization for reproducible development and production environments.",
+        icon: DockerIcon,
+      },
+      {
+        name: "Cloudflare",
+        description:
+          "Edge infrastructure and cloud platform for modern application deployment.",
+        icon: CloudflareIcon,
+      },
+      {
+        name: "Linux",
+        description:
+          "Operating system fundamentals, CLI workflows and server environments.",
+        icon: LinuxIcon,
+      },
+      {
+        name: "Ubuntu",
+        description:
+          "Linux distribution commonly used for development and server environments.",
+        icon: UbuntuIcon,
       },
     ],
   },
+
   {
-    title: "Engineering",
+    title: "API & Developer Tools",
     description:
-      "Practices that keep software secure, maintainable and reliable.",
+      "Tools used for API development, testing and everyday engineering workflows.",
     skills: [
       {
-        name: "API Design",
+        name: "Postman",
         description:
-          "Clear contracts, validation, error handling and predictable responses.",
-        icon: BracketsCurly,
-      },
-      {
-        name: "Security",
-        description:
-          "Authentication, authorization, validation and secure application boundaries.",
-        icon: ShieldCheck,
-      },
-      {
-        name: "Performance",
-        description:
-          "Rendering, caching, bundle size and runtime performance optimization.",
-        icon: Gear,
-      },
-      {
-        name: "Git",
-        description:
-          "Structured version control and clean engineering workflows.",
-        icon: GitBranch,
+          "API development, testing, debugging and request inspection.",
+        icon: PostmanIcon,
       },
     ],
   },
-] as const;
+];
 
 export function SkillsGrid() {
   return (
-    <div className="grid gap-10 lg:grid-cols-2">
+    <div className="grid gap-12 lg:grid-cols-2">
       {skillGroups.map((group) => (
-        <div key={group.title}>
+        <section key={group.title}>
           <div className="mb-5">
             <h3 className="text-lg font-semibold tracking-tight">
               {group.title}
@@ -166,7 +269,7 @@ export function SkillsGrid() {
               />
             ))}
           </div>
-        </div>
+        </section>
       ))}
     </div>
   );
