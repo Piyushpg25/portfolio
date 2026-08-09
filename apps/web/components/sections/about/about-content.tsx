@@ -1,64 +1,116 @@
 "use client";
 
-import { motion } from "motion/react";
+import {
+  ArrowUpRight,
+  Code,
+  Lightning,
+  Rocket,
+} from "@phosphor-icons/react";
 
-const contentVariants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
+const highlights = [
+  {
+    icon: Code,
+    title: "Engineering Focus",
+    description:
+      "I enjoy turning complex requirements into clean, maintainable and scalable software.",
   },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut" as const,
-    },
+  {
+    icon: Lightning,
+    title: "Performance Mindset",
+    description:
+      "I care about fast interfaces, efficient APIs, reliable systems and thoughtful architecture.",
   },
-};
+  {
+    icon: Rocket,
+    title: "Always Building",
+    description:
+      "I learn by building real products and continuously improving them with production practices.",
+  },
+];
 
 export function AboutContent() {
   return (
-    <motion.div
-      variants={contentVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{
-        once: true,
-        amount: 0.25,
-      }}
-      className="max-w-2xl"
-    >
-      <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
-        About / Engineering Profile
-      </p>
-
-      <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
-        I enjoy turning complex problems into simple,
-        reliable software.
-      </h2>
-
-      <div className="mt-6 space-y-4 text-base leading-7 text-foreground/70 sm:text-lg">
-        <p>
-          I&apos;m a software engineer focused on building
-          modern web applications with a strong emphasis
-          on performance, maintainability and user
-          experience.
+    <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+      {/* Main Content */}
+      <div>
+        <p className="text-sm font-medium text-muted-foreground">
+          About me
         </p>
 
-        <p>
-          I enjoy working across the stack — from
-          designing interfaces and APIs to working with
-          databases, cloud infrastructure and deployment
-          pipelines.
-        </p>
+        <h2
+          id="about-heading"
+          className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+        >
+          I like building software that is simple on the surface and
+          thoughtful underneath.
+        </h2>
 
-        <p>
-          My goal is not just to make software work, but
-          to understand how it behaves in production and
-          continuously improve it.
-        </p>
+        <div className="mt-6 max-w-2xl space-y-5 text-base leading-7 text-muted-foreground">
+          <p>
+            I&apos;m a software engineer focused on building modern web
+            applications with strong attention to user experience,
+            performance and maintainable architecture.
+          </p>
+
+          <p>
+            My interests span frontend development, backend engineering,
+            databases, APIs, cloud infrastructure and DevOps. I enjoy
+            understanding how different parts of a system work together
+            rather than treating them as isolated technologies.
+          </p>
+
+          <p>
+            My goal is to keep improving as an engineer by building real
+            products, solving meaningful problems and following practices
+            that scale beyond a single project.
+          </p>
+        </div>
+
+        <a
+          href="#contact"
+          className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-muted-foreground"
+        >
+          Let&apos;s work together
+          <ArrowUpRight
+            size={17}
+            weight="bold"
+          />
+        </a>
       </div>
-    </motion.div>
+
+      {/* Highlights */}
+      <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+        {highlights.map((highlight) => {
+          const Icon = highlight.icon;
+
+          return (
+            <div
+              key={highlight.title}
+              className="group rounded-2xl border border-border/70 bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-muted/40 transition-transform duration-300 group-hover:scale-105">
+                  <Icon
+                    size={22}
+                    weight="duotone"
+                    className="text-foreground"
+                  />
+                </div>
+
+                <div>
+                  <h3 className="font-medium text-foreground">
+                    {highlight.title}
+                  </h3>
+
+                  <p className="mt-1.5 text-sm leading-6 text-muted-foreground">
+                    {highlight.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
