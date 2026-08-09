@@ -20,9 +20,53 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Piyush | Software Engineer",
+  metadataBase: new URL("http://localhost:3000"),
+
+  title: {
+    default: "Piyush | Software Engineer",
+    template: "%s | Piyush",
+  },
+
   description:
-    "Production-grade portfolio built with Next.js, Hono, Bun and Cloudflare.",
+    "Software engineer focused on building reliable, performant and user-friendly digital products.",
+
+  keywords: [
+    "Piyush",
+    "Software Engineer",
+    "Full Stack Developer",
+    "Next.js Developer",
+    "TypeScript Developer",
+    "Web Developer",
+  ],
+
+  authors: [
+    {
+      name: "Piyush",
+    },
+  ],
+
+  creator: "Piyush",
+
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    title: "Piyush | Software Engineer",
+    description:
+      "Software engineer focused on building reliable, performant and user-friendly digital products.",
+    siteName: "Piyush Portfolio",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Piyush | Software Engineer",
+    description:
+      "Software engineer focused on building reliable, performant and user-friendly digital products.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
