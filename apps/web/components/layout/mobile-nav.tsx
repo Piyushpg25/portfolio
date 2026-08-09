@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { List, Moon, Sun } from "@phosphor-icons/react";
+import { List, Moon, Sun, ArrowRight } from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
 
 import { navigation } from "@/constants/navigation";
@@ -22,27 +22,48 @@ export function MobileNav() {
 
   return (
     <Sheet>
+      {/* Trigger */}
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Open navigation menu">
-          <List size={22} />
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label="Open navigation menu"
+          className="size-10 rounded-xl border-border/70 bg-background/80 shadow-sm backdrop-blur transition-all duration-200 hover:bg-muted"
+        >
+          <List size={21} weight="bold" />
         </Button>
       </SheetTrigger>
 
-      <SheetContent side="right" className="w-[85%] max-w-sm">
-        <SheetHeader>
-          <SheetTitle>Navigation</SheetTitle>
+      {/* Mobile Drawer */}
+      <SheetContent
+        side="right"
+        className="w-[88%] max-w-sm border-l border-border/70 bg-background/95 px-6 backdrop-blur-xl"
+      >
+        <SheetHeader className="border-b border-border/60 pb-6">
+          <SheetTitle className="text-left text-lg font-semibold tracking-tight">
+            Navigation
+          </SheetTitle>
         </SheetHeader>
 
-        <nav className="mt-8" aria-label="Mobile navigation">
-          <ul className="flex flex-col gap-2">
+        {/* Navigation */}
+        <nav
+          className="mt-7"
+          aria-label="Mobile navigation"
+        >
+          <ul className="flex flex-col gap-1.5">
             {navigation.map((item) => (
               <li key={item.href}>
                 <SheetClose asChild>
                   <Link
                     href={item.href}
-                    className="flex min-h-11 items-center rounded-md px-4 text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    className="group flex min-h-12 items-center justify-between rounded-xl px-4 text-base font-medium text-muted-foreground transition-all duration-200 hover:bg-muted hover:text-foreground"
                   >
-                    {item.label}
+                    <span>{item.label}</span>
+
+                    <ArrowRight
+                      size={17}
+                      className="opacity-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100"
+                    />
                   </Link>
                 </SheetClose>
               </li>
@@ -50,16 +71,38 @@ export function MobileNav() {
           </ul>
         </nav>
 
-        <div className="mt-8 border-t pt-6">
+        {/* Theme */}
+        <div className="mt-8 border-t border-border/60 pt-6">
           <Button
             variant="outline"
-            className="w-full justify-start"
+            className="h-11 w-full justify-start gap-3 rounded-xl border-border/70 bg-background"
             onClick={() => setTheme(isDark ? "light" : "dark")}
           >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            {isDark ? (
+              <Sun
+                size={18}
+                weight="duotone"
+              />
+            ) : (
+              <Moon
+                size={18}
+                weight="duotone"
+              />
+            )}
 
-            {isDark ? "Switch to light mode" : "Switch to dark mode"}
+            <span>
+              {isDark
+                ? "Switch to light mode"
+                : "Switch to dark mode"}
+            </span>
           </Button>
+        </div>
+
+        {/* Footer text */}
+        <div className="mt-auto pt-10">
+          <p className="text-xs leading-5 text-muted-foreground">
+            Piyush · Software Engineer
+          </p>
         </div>
       </SheetContent>
     </Sheet>

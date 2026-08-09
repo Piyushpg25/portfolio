@@ -6,13 +6,31 @@ import { HeroBackground } from "@/components/sections/hero/hero-background";
 export function Hero() {
   return (
     <section
-      id="about"
+      id="hero"
+      className="relative isolate overflow-hidden"
       aria-labelledby="hero-heading"
-      className="relative overflow-hidden"
     >
       <HeroBackground />
 
-      <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20 lg:px-8">
+      <div
+        className="
+          relative
+          mx-auto
+          grid
+          min-h-[calc(100svh-4rem)]
+          max-w-7xl
+          items-center
+          gap-12
+          px-6
+          pb-16
+          pt-28
+          sm:pt-32
+          lg:grid-cols-[1.05fr_0.95fr]
+          lg:gap-16
+          lg:px-8
+          lg:py-20
+        "
+      >
         <HeroMotion>
           <HeroContent />
         </HeroMotion>
