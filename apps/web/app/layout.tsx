@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 import "./globals.css";
 import {Header} from '@/components/layout/header';
+import {CursorGlow} from '@/components/effects/curosr-glow';
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -85,6 +86,7 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
+          <CursorGlow />
           <Header />
           {children}
         </ThemeProvider>

@@ -1,4 +1,5 @@
 "use client";
+
 import {
   BootstrapIcon,
   CloudflareIcon,
@@ -245,20 +246,43 @@ const skillGroups: SkillGroup[] = [
 
 export function SkillsGrid() {
   return (
-    <div className="grid gap-12 lg:grid-cols-2">
-      {skillGroups.map((group) => (
-        <section key={group.title}>
-          <div className="mb-5">
-            <h3 className="text-lg font-semibold tracking-tight">
-              {group.title}
-            </h3>
+    <div className="space-y-12 sm:space-y-14">
+      {skillGroups.map((group, groupIndex) => (
+        <section
+          key={group.title}
+          aria-labelledby={`skill-group-${groupIndex}`}
+        >
+          {/* Category Header */}
+          <div className="mb-5 flex flex-col gap-3 border-b border-border/60 pb-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs text-muted-foreground">
+                  {String(groupIndex + 1).padStart(2, "0")}
+                </span>
 
-            <p className="mt-1 max-w-xl text-sm leading-6 text-muted-foreground">
-              {group.description}
-            </p>
+                <h3
+                  id={`skill-group-${groupIndex}`}
+                  className="text-xl font-semibold tracking-tight sm:text-2xl"
+                >
+                  {group.title}
+                </h3>
+              </div>
+
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                {group.description}
+              </p>
+            </div>
+
+            <span className="shrink-0 text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">
+              {group.skills.length}{" "}
+              {group.skills.length === 1
+                ? "Technology"
+                : "Technologies"}
+            </span>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
+          {/* Cards */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {group.skills.map((skill, index) => (
               <SkillCard
                 key={skill.name}
