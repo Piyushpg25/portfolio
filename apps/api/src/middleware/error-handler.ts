@@ -1,15 +1,9 @@
-import { Context } from "hono";
+import type { ErrorHandler } from "hono";
 
-export function errorHandler(error: Error, c: Context) {
-  console.error("[API Error]", error);
+import { errorResponse } from "../lib/api-response";
 
-  return c.json(
-    {
-      success: false,
-      error: {
-        message: "Internal server error",
-      },
-    },
-    500,
-  );
-}
+export const errorHandler: ErrorHandler = (error, c) => {
+  console.log("API Error:", error);
+
+  return c.json(errorResponse("Internal server error"), 500);
+};

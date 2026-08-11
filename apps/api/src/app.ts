@@ -7,6 +7,8 @@ import {requestLimit} from './middleware/request-limits';
 
 const app = new Hono();
 
+app.onError(errorHandler);
+
 const allowedOrigin =
   process.env.NODE_ENV === "production"
     ? process.env.FRONTEND_URL
@@ -35,7 +37,7 @@ app.get("/health", (c) => {
   });
 });
 
-app.onError(errorHandler);
+
 app.route("/", routes);
 app.route("/api/contacts", contactsRoute);
 
