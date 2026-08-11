@@ -1,17 +1,27 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import {pgTable, uuid, varchar, text, timestamp} from 'drizzle-orm/pg-core';
 
-export const projects = sqliteTable("projects", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+export const contacts = pgTable("contacts", {
+  id: uuid("id").defaultRandom().primaryKey(),
 
-  title: text("title").notNull(),
-
-  description: text("description").notNull(),
-
-  url: text("url"),
-
-  githubUrl: text("github_url"),
-
-  createdAt: integer("created_at", {
-    mode: "timestamp",
+  name: varchar("name", {
+    length: 100,
   }).notNull(),
-});
+
+  email: varchar("email", {
+    length: 255,
+
+  }).notNull(),
+
+  subject: varchar("subject", {
+    length: 200,
+  }),
+
+  message: text("message").notNull(),
+
+  createdAt: timestamp("created_at", {
+    withTimezone: true,
+  })
+
+  .defaultNow()
+  .notNull(),
+})
