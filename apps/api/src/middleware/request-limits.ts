@@ -8,7 +8,7 @@ export const requestLimit: MiddlewareHandler = async (c, next) => {
   if (contentLength && Number(contentLength) > MAX_BODY_SIZE) {
     return c.json(
       {
-        succss: false,
+        success: false,
         message: "Request body is too large",
       },
       413,

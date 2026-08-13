@@ -4,6 +4,7 @@ import { errorHandler } from "./middleware/error-handler";
 import contactsRoute from "./routes/contacts";
 import { cors } from "hono/cors";
 import {requestLimit} from './middleware/request-limits';
+import { contactRateLimit } from "./middleware/rate-limit";
 
 const app = new Hono();
 
@@ -24,6 +25,8 @@ app.use(
 );
 
 app.use("*", requestLimit)
+
+app.use("/api/contacts", contactRateLimit);
 
 app.get("/", (c) => {
   return c.json({

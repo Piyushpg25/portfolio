@@ -6,15 +6,20 @@ import { useEffect, useState } from "react";
 
 import { navigation } from "@/constants/navigation";
 
+type NavigationHref = (typeof navigation)[number]["href"];
+
 export function DesktopNav() {
-  const [activeSection, setActiveSection] = useState(
-    navigation[0]?.href ?? "",
-  );
+  const [activeSection, setActiveSection] =
+    useState<NavigationHref>(
+      navigation[0]?.href ?? "#about",
+    );
 
   useEffect(() => {
     const sections = navigation
       .map((item) =>
-        document.getElementById(item.href.replace("#", "")),
+        document.getElementById(
+          item.href.replace("#", ""),
+        ),
       )
       .filter(
         (section): section is HTMLElement =>
@@ -28,21 +33,33 @@ export function DesktopNav() {
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
-          .filter((entry) => entry.isIntersecting)
+          .filter(
+            (entry) => entry.isIntersecting,
+          )
           .sort(
             (a, b) =>
-              b.intersectionRatio - a.intersectionRatio,
+              b.intersectionRatio -
+              a.intersectionRatio,
           );
 
         if (visible[0]) {
-          setActiveSection(
-            `#${visible[0].target.id}`,
-          );
+          const id =
+            `#${visible[0].target.id}` as NavigationHref;
+
+          setActiveSection(id);
         }
       },
       {
-        rootMargin: "-25% 0px -55% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
+        rootMargin:
+          "-25% 0px -55% 0px",
+
+        threshold: [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          1,
+        ],
       },
     );
 
@@ -50,7 +67,8 @@ export function DesktopNav() {
       observer.observe(section),
     );
 
-    return () => observer.disconnect();
+    return () =>
+      observer.disconnect();
   }, []);
 
   return (
@@ -68,7 +86,9 @@ export function DesktopNav() {
               <Link
                 href={item.href}
                 aria-current={
-                  isActive ? "location" : undefined
+                  isActive
+                    ? "location"
+                    : undefined
                 }
                 className="
                   group

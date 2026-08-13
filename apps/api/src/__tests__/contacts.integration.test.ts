@@ -5,6 +5,13 @@ import { db } from "../db";
 import { contacts } from "../db/schema";
 import { eq } from "drizzle-orm";
 
+interface SuccessResponse {
+  success: boolean;
+  data: {
+    email: string;
+  };
+}
+
 describe("Contacts API - Database Integration", () => {
   it("should create a contact in the database", async () => {
     const email = `test-${Date.now()}@example.com`;
@@ -18,13 +25,15 @@ describe("Contacts API - Database Integration", () => {
         name: "Integration Test",
         email,
         subject: "Automated Test",
-        message: "Testing database integration successfully.",
+        message:
+          "Testing database integration successfully.",
       }),
     });
 
     expect(response.status).toBe(201);
 
-    const body = await response.json();
+    const body =
+      (await response.json()) as SuccessResponse;
 
     expect(body.success).toBe(true);
     expect(body.data.email).toBe(email);
@@ -38,7 +47,9 @@ describe("Contacts API - Database Integration", () => {
     );
 
     expect(createdContact).toBeDefined();
-    expect(createdContact?.name).toBe("Integration Test");
+    expect(createdContact?.name).toBe(
+      "Integration Test",
+    );
 
     await db
       .delete(contacts)

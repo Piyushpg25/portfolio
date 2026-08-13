@@ -2,6 +2,11 @@ import { describe, expect, it } from "vitest";
 
 import app from "../app";
 
+interface ErrorResponse {
+  success: boolean;
+  message: string;
+}
+
 describe("Contacts API", () => {
   it("should reject request when name is missing", async () => {
     const response = await app.request("/api/contacts", {
@@ -17,10 +22,13 @@ describe("Contacts API", () => {
 
     expect(response.status).toBe(400);
 
-    const body = await response.json();
+    const body =
+      (await response.json()) as ErrorResponse;
 
     expect(body.success).toBe(false);
-    expect(body.message).toBe("Invalid request data.");
+    expect(body.message).toBe(
+      "Invalid request data.",
+    );
   });
 
   it("should reject invalid email", async () => {
@@ -38,7 +46,8 @@ describe("Contacts API", () => {
 
     expect(response.status).toBe(400);
 
-    const body = await response.json();
+    const body =
+      (await response.json()) as ErrorResponse;
 
     expect(body.success).toBe(false);
   });
@@ -58,7 +67,8 @@ describe("Contacts API", () => {
 
     expect(response.status).toBe(400);
 
-    const body = await response.json();
+    const body =
+      (await response.json()) as ErrorResponse;
 
     expect(body.success).toBe(false);
   });
