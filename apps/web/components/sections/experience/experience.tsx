@@ -1,10 +1,10 @@
-import { ProjectsGrid } from "./project-grid";
+import { ExperienceContent } from "@/components/sections/experience/experience-content";
 
-export function Projects() {
+export function Experience() {
   return (
     <section
-      id="projects"
-      aria-labelledby="projects-heading"
+      id="experience"
+      aria-labelledby="experience-heading"
       className="
         relative
         overflow-hidden
@@ -14,8 +14,27 @@ export function Projects() {
         sm:py-32
       "
     >
+      {/* Subtle ambient gradient */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-0
+          -z-10
+          h-[420px]
+          w-[720px]
+          -translate-x-1/2
+          rounded-full
+          bg-blue-500/[0.035]
+          blur-3xl
+          dark:bg-blue-400/[0.045]
+        "
+      />
+
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header */}
+        {/* Section Header */}
         <div
           className="
             flex
@@ -30,7 +49,7 @@ export function Projects() {
             lg:gap-16
           "
         >
-          {/* Title */}
+          {/* Heading */}
           <div className="max-w-3xl">
             <div className="mb-5 flex items-center gap-3">
               <span
@@ -49,7 +68,7 @@ export function Projects() {
                   text-muted-foreground
                 "
               >
-                04
+                05
               </span>
 
               <span className="h-px w-7 bg-border" />
@@ -63,25 +82,25 @@ export function Projects() {
                   text-muted-foreground
                 "
               >
-                Selected Work
+                Experience
               </p>
             </div>
 
             <h2
-              id="projects-heading"
+              id="experience-heading"
               className="
                 text-4xl
                 font-semibold
-                leading-[0.98]
+                leading-[1]
                 tracking-[-0.045em]
                 text-foreground
                 sm:text-5xl
                 lg:text-6xl
               "
             >
-              Projects built with{" "}
+              Building experience through{" "}
               <span className="text-muted-foreground">
-                purpose.
+                real work.
               </span>
             </h2>
           </div>
@@ -96,16 +115,16 @@ export function Projects() {
                 sm:text-base
               "
             >
-              A selection of applications and engineering projects
-              demonstrating frontend development, backend architecture,
-              databases, APIs and production engineering practices.
+              Internships where I worked with Java, web technologies,
+              debugging, UI development, and real-world development
+              workflows.
             </p>
           </div>
         </div>
 
-        {/* Projects */}
+        {/* Experience Content */}
         <div className="mt-10 sm:mt-12">
-          <ProjectsGrid />
+          <ExperienceContent />
         </div>
       </div>
     </section>

@@ -1,7 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { List, Moon, Sun, ArrowRight } from "@phosphor-icons/react";
+import {
+  List,
+  Moon,
+  Sun,
+  ArrowRight,
+  FileText,
+} from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
 
 import { navigation } from "@/constants/navigation";
@@ -71,8 +77,27 @@ export function MobileNav() {
           </ul>
         </nav>
 
+        {/* Resume */}
+        <div className="mt-6">
+          <SheetClose asChild>
+            <Link
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-black px-4 text-sm font-medium text-background shadow-sm transition-all duration-200 hover:-translate-y-px hover:opacity-90"
+            >
+              <FileText
+                size={18}
+                weight="duotone"
+              />
+
+              <span>View Resume</span>
+            </Link>
+          </SheetClose>
+        </div>
+
         {/* Theme */}
-        <div className="mt-8 border-t border-border/60 pt-6">
+        <div className="mt-6 border-t border-border/60 pt-6">
           <Button
             variant="outline"
             className="h-11 w-full justify-start gap-3 rounded-xl border-border/70 bg-background"

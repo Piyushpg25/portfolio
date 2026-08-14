@@ -52,7 +52,6 @@ export function ContactForm() {
   const [serverError, setServerError] =
     useState("");
 
-  // Honeypot field used for basic bot protection.
   const honeypotRef =
     useRef<HTMLInputElement>(null);
 
@@ -63,7 +62,6 @@ export function ContactForm() {
     const email = formData.email.trim();
     const message = formData.message.trim();
 
-    // Name
     if (!name) {
       newErrors.name = "Please enter your name.";
     } else if (name.length < 2) {
@@ -71,7 +69,6 @@ export function ContactForm() {
         "Name must be at least 2 characters.";
     }
 
-    // Email
     if (!email) {
       newErrors.email =
         "Please enter your email.";
@@ -82,7 +79,6 @@ export function ContactForm() {
         "Please enter a valid email address.";
     }
 
-    // Message
     if (!message) {
       newErrors.message =
         "Please enter a message.";
@@ -125,7 +121,6 @@ export function ContactForm() {
     setSubmitted(false);
     setServerError("");
 
-    // Client-side validation
     const validationErrors =
       validateForm();
 
@@ -144,7 +139,6 @@ export function ContactForm() {
         process.env.NEXT_PUBLIC_API_URL ??
         "http://localhost:3001";
 
-      // Read the hidden honeypot field.
       const honeypot =
         honeypotRef.current?.value ?? "";
 
@@ -161,10 +155,6 @@ export function ContactForm() {
             name: formData.name.trim(),
             email: formData.email.trim(),
             message: formData.message.trim(),
-
-            // Empty for real users.
-            // Bots filling the hidden field will be rejected
-            // by the backend.
             website: "",
           }),
         },
@@ -172,8 +162,6 @@ export function ContactForm() {
 
       const data: ApiResponse =
         await response.json();
-
-        
 
       if (!response.ok) {
         if (data.errors) {
@@ -192,11 +180,9 @@ export function ContactForm() {
         return;
       }
 
-      // Success
       setSubmitted(true);
       setFormData(initialFormData);
 
-      // Clear honeypot just in case.
       if (honeypotRef.current) {
         honeypotRef.current.value = "";
       }
@@ -218,14 +204,37 @@ export function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="space-y-5"
+      className="space-y-6"
     >
-      {/* ==================== NAME ==================== */}
+      {/* Form heading */}
+      <div className="mb-8">
+        <p
+          className="
+            text-xs
+            font-semibold
+            uppercase
+            tracking-[0.18em]
+            text-muted-foreground
+          "
+        >
+          Send a message
+        </p>
 
-      <div className="space-y-2">
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">
+          I&apos;ll get back to you as soon as possible.
+        </p>
+      </div>
+
+      {/* NAME */}
+      <div className="space-y-2.5">
         <label
           htmlFor="name"
-          className="text-sm font-medium text-foreground"
+          className="
+            block
+            text-sm
+            font-medium
+            text-foreground
+          "
         >
           Name
         </label>
@@ -245,29 +254,61 @@ export function ContactForm() {
               ? "name-error"
               : undefined
           }
-          className={`w-full rounded-xl border bg-background px-4 py-3 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:ring-2 disabled:cursor-not-allowed disabled:opacity-60 ${
-            errors.name
-              ? "border-red-500 focus:ring-red-500/20"
-              : "border-border focus:border-foreground/40 focus:ring-foreground/10"
-          }`}
+          className={`
+            w-full
+            rounded-xl
+            border
+            bg-background
+            px-4
+            py-3.5
+            text-sm
+            text-foreground
+            outline-none
+            transition-all
+            duration-200
+            placeholder:text-muted-foreground/45
+            disabled:cursor-not-allowed
+            disabled:opacity-60
+            ${
+              errors.name
+                ? `
+                  border-red-500/70
+                  focus:border-red-500
+                  focus:ring-4
+                  focus:ring-red-500/10
+                `
+                : `
+                  border-border/70
+                  hover:border-border
+                  focus:border-blue-500/60
+                  focus:ring-4
+                  focus:ring-blue-500/10
+                  dark:focus:border-blue-400/60
+                `
+            }
+          `}
         />
 
         {errors.name && (
           <p
             id="name-error"
-            className="text-xs text-red-500"
+            className="text-xs text-red-500 dark:text-red-400"
           >
             {errors.name}
           </p>
         )}
       </div>
 
-      {/* ==================== EMAIL ==================== */}
-
-      <div className="space-y-2">
+      {/* EMAIL */}
+      <div className="space-y-2.5">
         <label
           htmlFor="email"
-          className="text-sm font-medium text-foreground"
+          className="
+            block
+            text-sm
+            font-medium
+            text-foreground
+          "
         >
           Email
         </label>
@@ -287,32 +328,74 @@ export function ContactForm() {
               ? "email-error"
               : undefined
           }
-          className={`w-full rounded-xl border bg-background px-4 py-3 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:ring-2 disabled:cursor-not-allowed disabled:opacity-60 ${
-            errors.email
-              ? "border-red-500 focus:ring-red-500/20"
-              : "border-border focus:border-foreground/40 focus:ring-foreground/10"
-          }`}
+          className={`
+            w-full
+            rounded-xl
+            border
+            bg-background
+            px-4
+            py-3.5
+            text-sm
+            text-foreground
+            outline-none
+            transition-all
+            duration-200
+            placeholder:text-muted-foreground/45
+            disabled:cursor-not-allowed
+            disabled:opacity-60
+            ${
+              errors.email
+                ? `
+                  border-red-500/70
+                  focus:border-red-500
+                  focus:ring-4
+                  focus:ring-red-500/10
+                `
+                : `
+                  border-border/70
+                  hover:border-border
+                  focus:border-blue-500/60
+                  focus:ring-4
+                  focus:ring-blue-500/10
+                  dark:focus:border-blue-400/60
+                `
+            }
+          `}
         />
 
         {errors.email && (
           <p
             id="email-error"
-            className="text-xs text-red-500"
+            className="text-xs text-red-500 dark:text-red-400"
           >
             {errors.email}
           </p>
         )}
       </div>
 
-      {/* ==================== MESSAGE ==================== */}
+      {/* MESSAGE */}
+      <div className="space-y-2.5">
+        <div className="flex items-center justify-between">
+          <label
+            htmlFor="message"
+            className="
+              text-sm
+              font-medium
+              text-foreground
+            "
+          >
+            Message
+          </label>
 
-      <div className="space-y-2">
-        <label
-          htmlFor="message"
-          className="text-sm font-medium text-foreground"
-        >
-          Message
-        </label>
+          <span
+            className="
+              text-[11px]
+              text-muted-foreground/50
+            "
+          >
+            Min. 10 characters
+          </span>
+        </div>
 
         <textarea
           id="message"
@@ -328,49 +411,106 @@ export function ContactForm() {
               ? "message-error"
               : undefined
           }
-          className={`w-full resize-none rounded-xl border bg-background px-4 py-3 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:ring-2 disabled:cursor-not-allowed disabled:opacity-60 ${
-            errors.message
-              ? "border-red-500 focus:ring-red-500/20"
-              : "border-border focus:border-foreground/40 focus:ring-foreground/10"
-          }`}
+          className={`
+            min-h-[150px]
+            w-full
+            resize-none
+            rounded-xl
+            border
+            bg-background
+            px-4
+            py-3.5
+            text-sm
+            leading-6
+            text-foreground
+            outline-none
+            transition-all
+            duration-200
+            placeholder:text-muted-foreground/45
+            disabled:cursor-not-allowed
+            disabled:opacity-60
+            ${
+              errors.message
+                ? `
+                  border-red-500/70
+                  focus:border-red-500
+                  focus:ring-4
+                  focus:ring-red-500/10
+                `
+                : `
+                  border-border/70
+                  hover:border-border
+                  focus:border-blue-500/60
+                  focus:ring-4
+                  focus:ring-blue-500/10
+                  dark:focus:border-blue-400/60
+                `
+            }
+          `}
         />
 
         {errors.message && (
           <p
             id="message-error"
-            className="text-xs text-red-500"
+            className="text-xs text-red-500 dark:text-red-400"
           >
             {errors.message}
           </p>
         )}
       </div>
 
-      {/* ==================== SERVER ERROR ==================== */}
-
+      {/* SERVER ERROR */}
       {serverError && (
         <div
           role="alert"
-          className="flex items-center gap-2 rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-600 dark:text-red-400"
+          className="
+            flex
+            items-start
+            gap-2.5
+            rounded-xl
+            border
+            border-red-500/20
+            bg-red-500/[0.06]
+            px-4
+            py-3
+            text-sm
+            text-red-600
+            dark:text-red-400
+          "
         >
           <WarningCircle
             size={18}
             weight="fill"
+            className="mt-0.5 shrink-0"
           />
 
           <span>{serverError}</span>
         </div>
       )}
 
-      {/* ==================== SUCCESS ==================== */}
-
+      {/* SUCCESS */}
       {submitted && (
         <div
           role="status"
-          className="flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3 text-sm text-emerald-600 dark:text-emerald-400"
+          className="
+            flex
+            items-start
+            gap-2.5
+            rounded-xl
+            border
+            border-emerald-500/20
+            bg-emerald-500/[0.06]
+            px-4
+            py-3
+            text-sm
+            text-emerald-600
+            dark:text-emerald-400
+          "
         >
           <CheckCircle
             size={18}
             weight="fill"
+            className="mt-0.5 shrink-0"
           />
 
           <span>
@@ -379,8 +519,7 @@ export function ContactForm() {
         </div>
       )}
 
-      {/* ==================== HONEYPOT ==================== */}
-
+      {/* HONEYPOT */}
       <input
         ref={honeypotRef}
         type="text"
@@ -388,42 +527,122 @@ export function ContactForm() {
         tabIndex={-1}
         autoComplete="off"
         aria-hidden="true"
-        className="absolute -left-[9999px] h-px w-px overflow-hidden"
+        className="
+          absolute
+          -left-[9999px]
+          h-px
+          w-px
+          overflow-hidden
+        "
       />
 
-      {/* ==================== SUBMIT ==================== */}
-
+      {/* SUBMIT */}
       <button
         type="submit"
         disabled={isSubmitting}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-zinc-950 px-5 py-3 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-zinc-800 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
+        className="
+          group
+          relative
+          inline-flex
+          w-full
+          items-center
+          justify-center
+          gap-2
+          overflow-hidden
+          rounded-xl
+          bg-gradient-to-r
+          from-zinc-950
+          via-zinc-900
+          to-zinc-800
+          px-5
+          py-3.5
+          text-sm
+          font-medium
+          text-white
+          shadow-sm
+          transition-all
+          duration-300
+          hover:-translate-y-0.5
+          hover:shadow-lg
+          hover:shadow-black/10
+          disabled:cursor-not-allowed
+          disabled:opacity-60
+          disabled:hover:translate-y-0
+          dark:from-white
+          dark:via-zinc-100
+          dark:to-zinc-200
+          dark:text-zinc-950
+          dark:hover:shadow-white/10
+        "
       >
-        {isSubmitting ? (
-          <>
-            <span className="size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+        {/* Button shine */}
+        <span
+          aria-hidden="true"
+          className="
+            absolute
+            inset-y-0
+            -left-full
+            w-1/2
+            skew-x-[-20deg]
+            bg-gradient-to-r
+            from-transparent
+            via-white/15
+            to-transparent
+            transition-all
+            duration-700
+            group-hover:left-[120%]
+            dark:via-black/5
+          "
+        />
 
-            Sending...
-          </>
-        ) : submitted ? (
-          <>
-            <CheckCircle
-              size={18}
-              weight="fill"
-            />
+        <span className="relative flex items-center gap-2">
+          {isSubmitting ? (
+            <>
+              <span
+                className="
+                  size-4
+                  animate-spin
+                  rounded-full
+                  border-2
+                  border-current
+                  border-t-transparent
+                "
+              />
 
-            Message Sent
-          </>
-        ) : (
-          <>
-            <PaperPlaneTilt
-              size={18}
-              weight="fill"
-            />
+              Sending...
+            </>
+          ) : submitted ? (
+            <>
+              <CheckCircle
+                size={18}
+                weight="fill"
+              />
 
-            Send Message
-          </>
-        )}
+              Message Sent
+            </>
+          ) : (
+            <>
+              <PaperPlaneTilt
+                size={18}
+                weight="fill"
+              />
+
+              Send Message
+            </>
+          )}
+        </span>
       </button>
+
+      <p
+        className="
+          text-center
+          text-[11px]
+          leading-5
+          text-muted-foreground/50
+        "
+      >
+        Your information is only used to respond to your message.
+      </p>
     </form>
   );
 }

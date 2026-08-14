@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   ArrowDown,
   ArrowRight,
-  Sparkle,
+  FileText,
 } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 
@@ -79,11 +79,12 @@ export function HeroContent() {
         <span
           className="
             bg-gradient-to-r
-            from-foreground
-            via-foreground
-            to-muted-foreground
+            from-blue-500
+            via-violet-500
+            to-cyan-400
             bg-clip-text
             text-transparent
+            drop-shadow-[0_0_24px_rgba(99,102,241,0.18)]
           "
         >
           digital products.
@@ -112,9 +113,16 @@ export function HeroContent() {
       {/* Actions */}
       <motion.div
         variants={itemVariants}
-        className="mt-9 flex flex-col gap-3 sm:flex-row"
+        className="
+          mt-9
+          flex
+          flex-col
+          gap-3
+          sm:flex-row
+          sm:flex-wrap
+        "
       >
-        {/* Primary */}
+        {/* View Projects */}
         <Button
           asChild
           size="lg"
@@ -154,7 +162,7 @@ export function HeroContent() {
           </Link>
         </Button>
 
-        {/* Secondary */}
+        {/* Contact Me */}
         <Button
           asChild
           variant="outline"
@@ -175,6 +183,42 @@ export function HeroContent() {
         >
           <Link href="#contact">
             Contact Me
+          </Link>
+        </Button>
+
+        {/* View Resume */}
+        <Button
+          asChild
+          variant="outline"
+          size="lg"
+          className="
+            group
+            h-12
+            rounded-xl
+            border-border/70
+            bg-background/60
+            px-5
+            backdrop-blur-sm
+            transition-all
+            duration-300
+            hover:-translate-y-0.5
+            hover:bg-muted
+            hover:shadow-md
+          "
+        >
+          <Link
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View resume PDF"
+          >
+            <FileText
+              size={18}
+              weight="duotone"
+              className="mr-1"
+            />
+
+            View Resume
           </Link>
         </Button>
       </motion.div>

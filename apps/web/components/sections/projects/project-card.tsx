@@ -12,7 +12,13 @@ import { motion } from "motion/react";
 interface ProjectIconProps {
   size?: number;
   className?: string;
-  weight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
+  weight?:
+    | "thin"
+    | "light"
+    | "regular"
+    | "bold"
+    | "fill"
+    | "duotone";
 }
 
 interface ProjectCardProps {
@@ -42,7 +48,7 @@ export function ProjectCard({
     <motion.article
       initial={{
         opacity: 0,
-        y: 24,
+        y: 20,
       }}
       whileInView={{
         opacity: 1,
@@ -54,70 +60,236 @@ export function ProjectCard({
       }}
       transition={{
         duration: 0.5,
-        delay: index * 0.08,
+        delay: index * 0.06,
         ease: "easeOut",
       }}
       whileHover={{
-        y: -5,
+        y: -4,
       }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm transition-shadow duration-300 hover:shadow-xl"
+      className={`
+        group
+        relative
+        flex
+        h-full
+        flex-col
+        overflow-hidden
+        rounded-2xl
+        border
+        bg-background
+        transition-all
+        duration-300
+        ${
+          featured
+            ? `
+              border-blue-500/20
+              shadow-[0_12px_45px_rgba(59,130,246,0.08)]
+              dark:border-blue-400/20
+              dark:shadow-[0_12px_45px_rgba(59,130,246,0.06)]
+            `
+            : `
+              border-border/60
+              shadow-sm
+            `
+        }
+        hover:border-foreground/20
+        hover:shadow-[0_18px_45px_rgba(0,0,0,0.08)]
+        dark:hover:shadow-[0_18px_45px_rgba(0,0,0,0.25)]
+      `}
     >
+      {/* Top accent */}
+      <div
+        aria-hidden="true"
+        className={`
+          absolute
+          inset-x-0
+          top-0
+          h-px
+          bg-gradient-to-r
+          from-transparent
+          ${
+            featured
+              ? "via-blue-500/70"
+              : "via-foreground/20"
+          }
+          to-transparent
+        `}
+      />
+
       {/* Visual Header */}
-      <div className="relative h-36 overflow-hidden border-b border-border/70 bg-muted/30">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(120,120,120,0.14),transparent_55%)]" />
+      <div
+        className={`
+          relative
+          h-40
+          overflow-hidden
+          border-b
+          border-border/50
+          ${
+            featured
+              ? `
+                bg-gradient-to-br
+                from-blue-500/[0.10]
+                via-violet-500/[0.05]
+                to-transparent
+                dark:from-blue-400/[0.12]
+                dark:via-violet-400/[0.06]
+              `
+              : `
+                bg-gradient-to-br
+                from-muted/70
+                via-background
+                to-muted/30
+              `
+          }
+        `}
+      >
+        {/* Ambient gradient */}
+        <div
+          aria-hidden="true"
+          className={`
+            pointer-events-none
+            absolute
+            -right-16
+            -top-16
+            size-40
+            rounded-full
+            blur-3xl
+            transition-opacity
+            duration-500
+            group-hover:opacity-100
+            ${
+              featured
+                ? "bg-blue-500/15 opacity-70"
+                : "bg-foreground/[0.04] opacity-50"
+            }
+          `}
+        />
 
-        <div className="absolute -right-10 -top-10 size-32 rounded-full border border-border/40 transition-transform duration-500 group-hover:scale-125" />
-
-        <div className="absolute -bottom-16 -left-10 size-36 rounded-full border border-border/30 transition-transform duration-500 group-hover:scale-110" />
+        {/* Grid detail */}
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute
+            inset-0
+            opacity-[0.035]
+            [background-image:linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)]
+            [background-size:28px_28px]
+            [mask-image:linear-gradient(to_bottom,black,transparent)]
+          "
+        />
 
         <div className="relative flex h-full items-center justify-between px-6">
           {/* Project Icon */}
-          <div className="flex size-14 items-center justify-center rounded-2xl border border-border/70 bg-background shadow-sm transition-transform duration-300 group-hover:scale-105">
+          <motion.div
+            whileHover={{
+              scale: 1.06,
+            }}
+            transition={{
+              duration: 0.25,
+            }}
+            className={`
+              flex
+              size-14
+              items-center
+              justify-center
+              rounded-2xl
+              border
+              bg-background/80
+              shadow-sm
+              backdrop-blur-sm
+              ${
+                featured
+                  ? "border-blue-500/20 dark:border-blue-400/20"
+                  : "border-border/70"
+              }
+            `}
+          >
             {Icon ? (
               <Icon
                 size={28}
                 weight="duotone"
-                className="text-foreground"
+                className={
+                  featured
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-foreground"
+                }
               />
             ) : (
               <span className="text-xl font-semibold text-foreground">
                 {title.charAt(0)}
               </span>
             )}
-          </div>
+          </motion.div>
 
-          {/* Featured Badge */}
+          {/* Featured */}
           {featured && (
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground shadow-sm backdrop-blur">
+            <div
+              className="
+                inline-flex
+                items-center
+                gap-1.5
+                rounded-full
+                border
+                border-blue-500/20
+                bg-background/80
+                px-3
+                py-1.5
+                text-xs
+                font-medium
+                text-blue-600
+                shadow-sm
+                backdrop-blur-sm
+                dark:border-blue-400/20
+                dark:text-blue-400
+              "
+            >
               <Sparkle
                 size={13}
                 weight="fill"
               />
 
-              <span>Featured</span>
+              Featured
             </div>
           )}
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
         {/* Title + Status */}
         <div>
-          <h3 className="text-xl font-semibold tracking-tight text-foreground">
-            {title}
-          </h3>
+          <div className="flex items-start justify-between gap-4">
+            <h3
+              className={`
+                text-xl
+                font-semibold
+                tracking-[-0.02em]
+                text-foreground
+                ${
+                  featured
+                    ? "sm:text-2xl"
+                    : ""
+                }
+              `}
+            >
+              {title}
+            </h3>
+          </div>
 
-          <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="mt-2.5 flex items-center gap-2">
             <span
-              className={`size-1.5 rounded-full ${
-                status === "completed"
-                  ? "bg-emerald-500"
-                  : "bg-amber-500"
-              }`}
+              className={`
+                size-1.5
+                rounded-full
+                ${
+                  status === "completed"
+                    ? "bg-emerald-500"
+                    : "bg-amber-500"
+                }
+              `}
             />
 
-            <span>
+            <span className="text-xs font-medium text-muted-foreground">
               {status === "completed"
                 ? "Completed"
                 : "Currently building"}
@@ -126,16 +298,43 @@ export function ProjectCard({
         </div>
 
         {/* Description */}
-        <p className="mt-5 text-sm leading-6 text-muted-foreground">
+        <p
+          className={`
+            mt-5
+            max-w-2xl
+            text-sm
+            leading-6
+            text-muted-foreground
+            ${
+              featured
+                ? "sm:text-[15px] sm:leading-7"
+                : ""
+            }
+          `}
+        >
           {description}
         </p>
 
         {/* Technologies */}
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-6 flex flex-wrap gap-1.5">
           {technologies.map((technology) => (
             <span
               key={technology}
-              className="rounded-md border border-border/70 bg-muted/40 px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors duration-200 group-hover:bg-muted/70"
+              className="
+                rounded-md
+                border
+                border-border/60
+                bg-muted/30
+                px-2.5
+                py-1
+                text-[11px]
+                font-medium
+                text-muted-foreground
+                transition-colors
+                duration-200
+                group-hover:bg-muted/50
+                group-hover:text-foreground
+              "
             >
               {technology}
             </span>
@@ -143,21 +342,39 @@ export function ProjectCard({
         </div>
 
         {/* Actions */}
-        <div className="mt-auto flex flex-wrap items-center gap-3 pt-8">
+        <div className="mt-auto flex flex-wrap items-center gap-2.5 pt-8">
           {/* GitHub */}
           <Link
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`View ${title} source code on GitHub`}
-            className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:bg-muted hover:shadow-sm"
+            className="
+              inline-flex
+              h-10
+              items-center
+              gap-2
+              rounded-lg
+              border
+              border-border/70
+              bg-background
+              px-3.5
+              text-sm
+              font-medium
+              text-foreground
+              transition-all
+              duration-200
+              hover:-translate-y-0.5
+              hover:bg-muted
+              hover:shadow-sm
+            "
           >
             <GithubLogo
               size={17}
               weight="fill"
             />
 
-            <span>Code</span>
+            Code
           </Link>
 
           {/* Live Demo */}
@@ -167,53 +384,66 @@ export function ProjectCard({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`View live demo of ${title}`}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                padding: "10px 16px",
-                minHeight: "40px",
-                borderRadius: "8px",
-                backgroundColor: "#18181b",
-                color: "#ffffff",
-                fontSize: "14px",
-                fontWeight: 500,
-                lineHeight: 1.25,
-                textDecoration: "none",
-                whiteSpace: "nowrap",
-                boxShadow:
-                  "0 1px 2px rgba(0, 0, 0, 0.08)",
-                transition:
-                  "transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease",
-              }}
+              className="
+                group/demo
+                inline-flex
+                h-10
+                items-center
+                gap-2
+                rounded-lg
+                bg-black/0
+                px-4
+                text-sm
+                font-medium
+                text-background
+                shadow-sm
+                transition-all
+                duration-200
+                hover:-translate-y-0.5
+                hover:shadow-md
+              "
             >
-              <span
-                style={{
-                  display: "inline-block",
-                  color: "#ffffff",
-                  opacity: 1,
-                  visibility: "visible",
-                }}
-              >
-                Live Demo
-              </span>
+              Live Demo
 
               <ArrowUpRight
-                size={17}
+                size={16}
                 weight="bold"
-                color="#ffffff"
-                style={{
-                  flexShrink: 0,
-                }}
+                className="
+                  transition-transform
+                  duration-200
+                  group-hover/demo:translate-x-0.5
+                  group-hover/demo:-translate-y-0.5
+                "
               />
             </Link>
           )}
         </div>
       </div>
 
-      {/* Hover Highlight */}
-      <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-foreground/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      {/* Bottom hover highlight */}
+      <div
+        aria-hidden="true"
+        className={`
+          pointer-events-none
+          absolute
+          inset-x-10
+          bottom-0
+          h-px
+          origin-center
+          scale-x-0
+          bg-gradient-to-r
+          from-transparent
+          ${
+            featured
+              ? "via-blue-500/60"
+              : "via-foreground/30"
+          }
+          to-transparent
+          transition-transform
+          duration-500
+          group-hover:scale-x-100
+        `}
+      />
     </motion.article>
   );
 }

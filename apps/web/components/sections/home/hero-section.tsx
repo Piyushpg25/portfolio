@@ -19,7 +19,7 @@ export function HeroSection() {
               Digital Experiences.
             </h1>
 
-            <p className="text-lead mb-10 max-w-xl">
+            <p className="text-lead mb-20 max-w-xl ">
               I&apos;m a Full Stack Developer passionate about building fast,
               scalable and production-ready applications using modern web
               technologies.
