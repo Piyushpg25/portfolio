@@ -7,10 +7,16 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "echo \"Apps will be added in upcoming milestones\"",
-    "build": "echo \"Build configuration coming soon\"",
-    "lint": "echo \"Lint configuration coming soon\"",
-    "test": "echo \"Testing configuration coming soon\"",
-    "format": "echo \"Formatting configuration coming soon\""
+    "dev:web": "bun run --cwd apps/web dev",
+    "dev:api": "bun run --cwd apps/api dev",
+
+    "build:web": "bun run --cwd apps/web build",
+
+    "typecheck:web": "bun run --cwd apps/web typecheck",
+    "typecheck:api": "bun run --cwd apps/api typecheck",
+
+    "test:api": "bun run --cwd apps/api test",
+
+    "lint:web": "bun run --cwd apps/web lint"
   }
 }
