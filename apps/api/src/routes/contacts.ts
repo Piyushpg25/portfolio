@@ -13,23 +13,7 @@ const contactsRoute = new Hono();
 contactsRoute.post("/", async (c) => {
   const body = await c.req.json();
 
-  
-
-  // Honeypot protection
-  if (
-    typeof body === "object" &&
-    body !== null &&
-    "website" in body &&
-    typeof body.website === "string" &&
-    body.website.trim() !== ""
-  ) {
-    return c.json(
-      errorResponse("Invalid request."),
-      400,
-    );
-  }
-
-  // Validate actual contact fields
+  // Validate contact fields
   const result = contactSchema.safeParse(body);
 
   if (!result.success) {

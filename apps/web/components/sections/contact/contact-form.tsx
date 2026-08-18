@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   CheckCircle,
   PaperPlaneTilt,
@@ -51,9 +51,6 @@ export function ContactForm() {
 
   const [serverError, setServerError] =
     useState("");
-
-  const honeypotRef =
-    useRef<HTMLInputElement>(null);
 
   function validateForm(): FormErrors {
     const newErrors: FormErrors = {};
@@ -139,9 +136,6 @@ export function ContactForm() {
         process.env.NEXT_PUBLIC_API_URL ??
         "http://localhost:3001";
 
-      const honeypot =
-        honeypotRef.current?.value ?? "";
-
       const response = await fetch(
         `${apiUrl}/api/contacts`,
         {
@@ -155,7 +149,6 @@ export function ContactForm() {
             name: formData.name.trim(),
             email: formData.email.trim(),
             message: formData.message.trim(),
-            website: honeypot.trim(),
           }),
         },
       );
@@ -182,10 +175,6 @@ export function ContactForm() {
 
       setSubmitted(true);
       setFormData(initialFormData);
-
-      if (honeypotRef.current) {
-        honeypotRef.current.value = "";
-      }
     } catch (error) {
       console.error(
         "Contact form submission failed:",
@@ -518,23 +507,6 @@ export function ContactForm() {
           </span>
         </div>
       )}
-
-      {/* HONEYPOT */}
-      <input
-        ref={honeypotRef}
-        type="text"
-        name="website"
-        tabIndex={-1}
-        autoComplete="off"
-        aria-hidden="true"
-        className="
-          absolute
-          -left-[9999px]
-          h-px
-          w-px
-          overflow-hidden
-        "
-      />
 
       {/* SUBMIT */}
       <button
