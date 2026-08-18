@@ -33,9 +33,7 @@ export function DesktopNav() {
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
-          .filter(
-            (entry) => entry.isIntersecting,
-          )
+          .filter((entry) => entry.isIntersecting)
           .sort(
             (a, b) =>
               b.intersectionRatio -
@@ -50,25 +48,18 @@ export function DesktopNav() {
         }
       },
       {
-        rootMargin:
-          "-25% 0px -55% 0px",
-
-        threshold: [
-          0,
-          0.25,
-          0.5,
-          0.75,
-          1,
-        ],
+        rootMargin: "-25% 0px -55% 0px",
+        threshold: [0, 0.25, 0.5, 0.75, 1],
       },
     );
 
-    sections.forEach((section) =>
-      observer.observe(section),
-    );
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
 
-    return () =>
+    return () => {
       observer.disconnect();
+    };
   }, []);
 
   return (
@@ -86,9 +77,7 @@ export function DesktopNav() {
               <Link
                 href={item.href}
                 aria-current={
-                  isActive
-                    ? "location"
-                    : undefined
+                  isActive ? "location" : undefined
                 }
                 className="
                   group
@@ -114,7 +103,14 @@ export function DesktopNav() {
                 {isActive && (
                   <motion.span
                     layoutId="active-navigation"
-                    className="absolute inset-0 -z-10 rounded-xl bg-muted shadow-sm"
+                    className="
+                      absolute
+                      inset-0
+                      -z-10
+                      rounded-xl
+                      bg-muted
+                      shadow-sm
+                    "
                     transition={{
                       type: "spring",
                       stiffness: 420,
@@ -123,7 +119,14 @@ export function DesktopNav() {
                   />
                 )}
 
-                <span className="relative transition-transform duration-200 group-hover:scale-[1.02]">
+                <span
+                  className="
+                    relative
+                    transition-transform
+                    duration-200
+                    group-hover:scale-[1.02]
+                  "
+                >
                   {item.label}
                 </span>
 

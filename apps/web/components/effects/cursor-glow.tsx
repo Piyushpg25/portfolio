@@ -18,12 +18,16 @@ export function CursorGlow() {
     const p2 = p2Ref.current;
     const p3 = p3Ref.current;
 
-    if (!system || !core || !ring || !p1 || !p2 || !p3) return;
+    if (!system || !core || !ring || !p1 || !p2 || !p3) {
+      return;
+    }
 
-    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (!window.matchMedia("(pointer: fine)").matches) {
+      return;
+    }
 
-    let mouseX = innerWidth / 2;
-    let mouseY = innerHeight / 2;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
 
     let x = mouseX;
     let y = mouseY;
@@ -35,9 +39,9 @@ export function CursorGlow() {
     let lastY = mouseY;
     let velocity = 0;
 
-    const move = (e: PointerEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+    const move = (event: PointerEvent) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
 
       const dx = mouseX - lastX;
       const dy = mouseY - lastY;
@@ -60,14 +64,12 @@ export function CursorGlow() {
       y += (mouseY - y) * 0.18;
 
       // Velocity decay
-      velocity *= 0.90;
+      velocity *= 0.9;
 
       // Orbital movement
       angle += 0.015 + velocity * 0.0007;
 
-      system.style.transform = `
-        translate3d(${x}px, ${y}px, 0)
-      `;
+      system.style.transform = `translate3d(${x}px, ${y}px, 0)`;
 
       // Core reacts to movement
       const coreScale = 1 + velocity * 0.018;
@@ -136,10 +138,7 @@ export function CursorGlow() {
     return () => {
       cancelAnimationFrame(frame);
 
-      window.removeEventListener(
-        "pointermove",
-        move,
-      );
+      window.removeEventListener("pointermove", move);
 
       document.documentElement.removeEventListener(
         "mouseleave",
@@ -152,31 +151,12 @@ export function CursorGlow() {
     <div
       ref={systemRef}
       aria-hidden="true"
-      className="
-        pointer-events-none
-        fixed
-        left-0
-        top-0
-        z-[9999]
-        size-0
-        opacity-0
-        will-change-transform
-      "
+      className="pointer-events-none fixed left-0 top-0 z-[9999] size-0 opacity-0 will-change-transform"
     >
       {/* Main orbital ring */}
       <div
         ref={ringRef}
-        className="
-          absolute
-          left-0
-          top-0
-          size-12
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          border
-          will-change-transform
-        "
+        className="absolute left-0 top-0 size-12 -translate-x-1/2 -translate-y-1/2 rounded-full border will-change-transform"
         style={{
           borderColor: "rgba(139, 92, 246, 0.22)",
           borderTopColor: "rgba(34, 211, 238, 0.85)",
@@ -187,17 +167,7 @@ export function CursorGlow() {
 
       {/* Inner orbit */}
       <div
-        className="
-          absolute
-          left-0
-          top-0
-          size-7
-          -translate-x-1/2
-          -translate-y-1/2
-          rotate-45
-          rounded-full
-          border
-        "
+        className="absolute left-0 top-0 size-7 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-full border"
         style={{
           borderColor: "rgba(34, 211, 238, 0.12)",
           borderTopColor: "rgba(139, 92, 246, 0.5)",
@@ -207,16 +177,7 @@ export function CursorGlow() {
       {/* White / violet core */}
       <div
         ref={coreRef}
-        className="
-          absolute
-          left-0
-          top-0
-          size-[9px]
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          will-change-transform
-        "
+        className="absolute left-0 top-0 size-[9px] -translate-x-1/2 -translate-y-1/2 rounded-full will-change-transform"
         style={{
           background: "#F5F3FF",
           boxShadow: `
@@ -231,16 +192,7 @@ export function CursorGlow() {
       {/* Violet orbit */}
       <span
         ref={p1Ref}
-        className="
-          absolute
-          left-0
-          top-0
-          size-[6px]
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          will-change-transform
-        "
+        className="absolute left-0 top-0 size-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full will-change-transform"
         style={{
           background: "#A78BFA",
           boxShadow: `
@@ -253,16 +205,7 @@ export function CursorGlow() {
       {/* Cyan orbit */}
       <span
         ref={p2Ref}
-        className="
-          absolute
-          left-0
-          top-0
-          size-[5px]
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          will-change-transform
-        "
+        className="absolute left-0 top-0 size-[5px] -translate-x-1/2 -translate-y-1/2 rounded-full will-change-transform"
         style={{
           background: "#67E8F9",
           boxShadow: `
@@ -275,16 +218,7 @@ export function CursorGlow() {
       {/* Tiny pink accent */}
       <span
         ref={p3Ref}
-        className="
-          absolute
-          left-0
-          top-0
-          size-[4px]
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          will-change-transform
-        "
+        className="absolute left-0 top-0 size-[4px] -translate-x-1/2 -translate-y-1/2 rounded-full will-change-transform"
         style={{
           background: "#F0ABFC",
           boxShadow: `
@@ -296,4 +230,3 @@ export function CursorGlow() {
     </div>
   );
 }
-

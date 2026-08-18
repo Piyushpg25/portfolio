@@ -19,7 +19,7 @@ const projects = [
       "Tailwind CSS",
       "Motion",
       "Three.js",
-      "Cloudflare",
+      
     ],
     githubUrl: "https://github.com/",
     liveUrl: "#",

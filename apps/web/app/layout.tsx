@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 import "./globals.css";
 import {Header} from '@/components/layout/header';
-import {CursorGlow} from '@/components/effects/curosr-glow';
+import {CursorGlow} from '@/components/effects/cursor-glow';
 
 const geistSans = Geist({
   subsets: ["latin"],

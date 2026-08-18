@@ -27,30 +27,23 @@ export function ThemeToggle() {
     getServerSnapshot,
   );
 
-  if (!mounted) {
-    return (
-      <Button
-        variant="ghost"
-        size="icon"
-        aria-label="Toggle theme"
-      >
-        <Sun size={18} />
-      </Button>
-    );
-  }
-
   const isDark = resolvedTheme === "dark";
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      aria-label="Toggle theme"
+      aria-label={
+        mounted
+          ? `Switch to ${isDark ? "light" : "dark"} theme`
+          : "Toggle theme"
+      }
+      disabled={!mounted}
       onClick={() =>
         setTheme(isDark ? "light" : "dark")
       }
     >
-      {isDark ? (
+      {mounted && isDark ? (
         <Sun size={18} />
       ) : (
         <Moon size={18} />
