@@ -84,7 +84,7 @@ export function MobileNav() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-black px-4 text-sm font-medium text-background shadow-sm transition-all duration-200 hover:-translate-y-px hover:opacity-90"
+              className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-black/0 px-4 text-sm font-medium text-background shadow-sm transition-all duration-200 hover:-translate-y-px hover:opacity-90"
             >
               <FileText
                 size={18}
