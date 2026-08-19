@@ -5,8 +5,8 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
 
 import "./globals.css";
-import {Header} from '@/components/layout/header';
-import {CursorGlow} from '@/components/effects/cursor-glow';
+import { Header } from "@/components/layout/header";
+import { CursorGlow } from "@/components/effects/cursor-glow";
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -20,8 +20,10 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("http://localhost:3000"),
+  metadataBase: new URL(siteUrl),
 
   title: {
     default: "Piyush | Software Engineer",
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Software engineer focused on building reliable, performant and user-friendly digital products.",
+    "Piyush is a software engineer focused on building reliable, performant and user-friendly digital products.",
 
   keywords: [
     "Piyush",
@@ -48,12 +50,17 @@ export const metadata: Metadata = {
 
   creator: "Piyush",
 
+  alternates: {
+    canonical: "/",
+  },
+
   openGraph: {
     type: "website",
     locale: "en_US",
+    url: "/",
     title: "Piyush | Software Engineer",
     description:
-      "Software engineer focused on building reliable, performant and user-friendly digital products.",
+      "Piyush is a software engineer focused on building reliable, performant and user-friendly digital products.",
     siteName: "Piyush Portfolio",
   },
 
@@ -61,12 +68,19 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Piyush | Software Engineer",
     description:
-      "Software engineer focused on building reliable, performant and user-friendly digital products.",
+      "Piyush is a software engineer focused on building reliable, performant and user-friendly digital products.",
   },
 
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -79,13 +93,23 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn(
-        geistSans.variable,
-        jetbrainsMono.variable
-      )}
+      className={cn(geistSans.variable, jetbrainsMono.variable)}
     >
       <body>
         <ThemeProvider>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Person",
+                name: "Piyush",
+                jobTitle: "Software Engineer",
+                url: siteUrl,
+                sameAs: [],
+              }),
+            }}
+          />
           <CursorGlow />
           <Header />
           {children}
