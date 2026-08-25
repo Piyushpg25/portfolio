@@ -9,7 +9,7 @@ The project is structured as a full-stack application with a **Next.js frontend*
 ## ✨ Live Application
 
 **Portfolio:**
-https://portfolio-web-gamma-henna.vercel.app
+https://portfolio-33h18xvi2-piyushpg25s-projects.vercel.app/
 
 **API:**
 https://portfolio-api-oum7.onrender.com
